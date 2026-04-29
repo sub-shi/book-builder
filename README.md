@@ -154,6 +154,30 @@ output/book.pdf
 
 ---
 
+## Future Improvements
+While the current pipeline successfully generates a structured book from the playlist, there are several areas for further enhancement:
+### Content Quality
+* Improve narrative flow across chapters (reduce repetition and increase cohesion)
+* Add cross-chapter references to maintain continuity
+* Enhance writing style to better resemble human-authored technical books
+
+### Source Grounding
+* Map chapters and sections directly to specific videos in the playlist
+* Add timestamps or references for stronger traceability
+* Optionally validate key concepts using external sources
+
+### LLM Enhancements
+* Experiment with higher-capability models for improved writing quality
+* Introduce multi-pass refinement (draft → review → improve)
+* Add consistency checks to reduce duplication and redundancy
+
+### Pipeline Robustness
+* Improve handling of API rate limits with smarter scheduling or queuing
+* Add automatic retries with persistent state tracking
+* Enable parallel processing for faster execution
+
+---
+
 ## Summary
 
 This project demonstrates how to build a reproducible system that transforms unstructured lecture content into a structured technical book using LLMs.
