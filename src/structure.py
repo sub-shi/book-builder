@@ -288,29 +288,29 @@ def generate_book():
         print(f"{title}")
 
         prompt = f"""
-Write chapter.
+    Write chapter.
 
-Rules:
-- No hallucination
-- Use only provided content
-- Build on previous chapters progressively
-- Avoid repetitive phrasing
-- Use varied sentence structures
-- Do not repeat concepts explained earlier
-- Write like a human instructor, not a template
+    Rules:
+    - No hallucination
+    - Use only provided content
+    - Build on previous chapters progressively
+    - Avoid repetitive phrasing
+    - Use varied sentence structures
+    - Do not repeat concepts explained earlier
+    - Write like a human instructor, not a template
+    - DO NOT include chapter titles like "## Chapter X" (they will be added externally)
 
-Format:
-## {title}
-### Overview
-### Key Concepts
-### Technical Explanation
-### Practical Intuition
-### Insight
-### Summary
+    Format:
+    ### Overview
+    ### Key Concepts
+    ### Technical Explanation
+    ### Practical Intuition
+    ### Insight
+    ### Summary
 
-Content:
-{ch}
-"""
+    Content:
+    {ch}
+    """
 
         text = cached_generate(model, prompt)
 
@@ -322,13 +322,21 @@ Content:
         # fix formatting
         text = re.sub(r'([a-z])([A-Z])', r'\1 \2', text)
 
-        if not text.startswith("##"):
-            text = f"## {title}\n\n" + text
+        # REMOVE ANY MODEL-GENERATED CHAPTER HEADERS
+        cleaned_lines = []
+        for line in text.splitlines():
+            if line.strip().startswith("##"):
+                continue
+            cleaned_lines.append(line)
+
+        text = "\n".join(cleaned_lines).strip()
+
+        # ALWAYS ADD SINGLE CLEAN HEADER
+        text = f"## {title}\n\n{text}"
 
         full_book += f"{text}\n\n---\n\n"
 
         time.sleep(10)
-
     with open("output/book.md", "w", encoding="utf-8") as f:
         f.write(full_book)
 
