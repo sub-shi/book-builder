@@ -79,6 +79,9 @@ python run_pipeline.py pdf
 ### Transcript Extraction (YouTube)
 
 * Transcript extraction may be rate-limited depending on your IP.
+---
+* Use VPN(USA) to prevent IP block.
+---
 * The pipeline is designed to:
 
   * Skip already processed videos
